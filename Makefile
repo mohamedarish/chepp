@@ -18,7 +18,7 @@ SOURCES := $(wildcard $(SRCDIR)/*.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%.$(SRCEXT),$(OBJDIR)/%.$(OBJEXT),$(SOURCES))
 
 # Target binary
-TARGET := $(BINDIR)/app
+TARGET := $(BINDIR)/chepp
 
 # Rules
 all: $(TARGET)
@@ -35,7 +35,7 @@ run: $(TARGET)
 	./$(TARGET)
 
 clean:
-	rm -rf $(OBJDIR) $(BINDIR)/app
+	rm -rf $(OBJDIR) $(TARGET)
 
 .PHONY: all clean
 

@@ -35,7 +35,7 @@ make run
 or
 
 ```bash
-./target/app
+./target/chepp
 ```
 
 ## TODOS
