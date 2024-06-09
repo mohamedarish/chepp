@@ -1,60 +1,82 @@
 #include "colors.h"
-#include "prompt.h"
+#include "shell.h"
+#include "tokenizer.h"
 #include <array>
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 #include <iostream>
 #include <istream>
 #include <ostream>
 #include <string>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <vector>
 
-bool shell_loop(Prompt&);
-std::string exec(const std::string&);
+void shell_loop(Shell&);
+void exec(const std::vector<char*>&);
 
 int main() {
-    const std::string username{RED + "username" + RESET};
-    const std::string hostname{GREEN + "hostname" + RESET};
+  const std::string username{RED + "username" + RESET};
+  const std::string hostname{GREEN + "hostname" + RESET};
 
-    const std::string prompt{std::string(username) + "@" +
-                             std::string(hostname) + " > "};
+  const std::string prompt{std::string(username) + "@" + std::string(hostname) +
+                           " > "};
 
-    Prompt terminal_prompt{prompt, std::string("/")};
+  Shell shell{prompt, std::string("/")};
 
-    if (!shell_loop(terminal_prompt)) {
-        return 0;
-    }
+  shell_loop(shell);
 
-    return 0;
+  return EXIT_SUCCESS;
 }
 
-bool shell_loop(Prompt& prompt) {
-    while (true) {
-        std::cout << prompt.prompt();
+void shell_loop(Shell& shell) {
+  while (true) {
+    std::cout << shell.prompt();
 
-        std::string command{};
+    std::string command{};
 
-        std::getline(std::cin >> std::ws, command);
+    std::getline(std::cin >> std::ws, command);
 
-        if (command == "exit") {
-            return false;
-        }
-
-        std::cout << exec(command) << std::endl;
+    if (command == "exit") {
+      break;
     }
 
-    return true;
+    const std::vector<char*> argv{string_tokenizer(command, ' ')};
+
+    exec(argv);
+  }
 }
 
-std::string exec(const std::string& command) {
-    std::array<char, 128> buffer;
-    std::string result{};
-    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(command.c_str(), "r"),
-                                                  pclose);
-    if (!pipe) {
-        throw std::runtime_error("popen() failed!");
+void exec(const std::vector<char*>& argv) {
+  std::vector<char*> cargv{};
+  for (auto arg : argv) {
+    cargv.push_back(const_cast<char*>(arg));
+  }
+  cargv.push_back(nullptr);
+
+  pid_t pid = fork();
+  if (pid == -1) {
+    std::cerr << "Fork failed!\n";
+
+    return;
+  } else if (pid == 0) {
+    execvp(cargv[0], cargv.data());
+
+    std::cerr << "chepp: \"" << cargv[0] << "\" command not found."
+              << std::endl;
+
+    exit(EXIT_FAILURE);
+  } else {
+    int status;
+    waitpid(pid, &status, 0);
+
+    if (!WIFEXITED(status)) {
+      /*  std::cout << "Command executed with exit status: " <<
+       * WEXITSTATUS(status)*/
+      /*            << std::endl;*/
+      /*} else {*/
+      std::cerr << "Command execution failed" << std::endl;
     }
-    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
-        result += buffer.data();
-    }
-    return result;
+  }
 }

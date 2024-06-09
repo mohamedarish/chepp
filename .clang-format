@@ -1,5 +1,5 @@
 BasedOnStyle: LLVM
-IndentWidth: 4
+IndentWidth: 2
 DerivePointerAlignment: false
 PointerAlignment: Left
 ColumnLimit: 80
