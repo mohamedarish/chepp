@@ -1,7 +1,8 @@
 # Compiler and flags
-CXX := clang++
+CXX := g++
 CXXFLAGS := -std=c++2b -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion
 LDFLAGS := -O2
+RDFLAGS := -lncurses
 
 # Directories
 SRCDIR := src
@@ -25,7 +26,7 @@ all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
 	@mkdir -p $(BINDIR)
-	$(CXX) $(LDFLAGS) -o $@ $^
+	$(CXX) $(LDFLAGS) -o $@ $(RDFLAGS) $^
 
 $(OBJDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(OBJDIR)

@@ -1,5 +1,5 @@
-#include "colors.h"
 #include "shell.h"
+#include "terminal.h"
 #include "tokenizer.h"
 #include <array>
 #include <cstdio>
@@ -14,24 +14,27 @@
 #include <unistd.h>
 #include <vector>
 
-void shell_loop(Shell&);
+void shell_loop(Terminal&);
 void exec(const std::vector<char*>&);
 
 int main() {
   Shell shell{};
+  Terminal terminal{0, 0, shell};
 
-  shell_loop(shell);
+  shell_loop(terminal);
 
   return EXIT_SUCCESS;
 }
 
-void shell_loop(Shell& shell) {
+void shell_loop(Terminal& terminal) {
   while (true) {
-    std::cout << shell.prompt();
+    /*std::cout << terminal.shell().prompt();*/
+    /*mvprintw(terminal.get_y(), terminal.get_x(),*/
+    /*         terminal.shell().prompt().c_str());*/
 
-    std::string command{};
+    terminal.print_output(terminal.shell().prompt());
 
-    std::getline(std::cin >> std::ws, command);
+    std::string command{terminal.read_user_input()};
 
     if (command == "exit") {
       std::cout << "chepp: Goodbye 👋\n";
@@ -46,7 +49,7 @@ void shell_loop(Shell& shell) {
         if (new_path.starts_with('"')) {
           new_path = new_path.substr(1, new_path.length() - 1);
         }
-        shell.update_directory(new_path.c_str());
+        terminal.update_directory(new_path.c_str());
       } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
       }

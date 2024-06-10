@@ -1,5 +1,4 @@
 #include "shell.h"
-#include "colors.h"
 #include "lib.h"
 #include <cstddef>
 #include <exception>
@@ -14,8 +13,7 @@ Shell::Shell() {
   change_dir_internal(current_directory);
   this->m_directory = current_directory;
 
-  std::string prompt{RED + "${USER}" + RESET + "@" + GREEN + "${HOST}" + RESET +
-                     YELLOW + " [${DIRECTORY}]" + RESET + " > "};
+  std::string prompt{"${USER}@${HOST} [${DIRECTORY}] > "};
   this->m_left = prompt;
 }
 
@@ -34,6 +32,10 @@ void Shell::update_directory(const std::string& new_directory) {
       old_directory.pop_back();
     }
     old_directory.pop_back();
+
+    if (old_directory.empty()) {
+      old_directory = "/";
+    }
 
     this->m_directory = old_directory;
 

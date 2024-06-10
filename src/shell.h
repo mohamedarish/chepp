@@ -2,7 +2,6 @@
 
 #define SHELL_H
 
-#include "colors.h"
 #include <cstring>
 #include <iostream>
 #include <string>
