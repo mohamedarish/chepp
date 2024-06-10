@@ -9,9 +9,14 @@
 #include <string>
 #include <string_view>
 
-Shell::Shell(const std::string& left, const std::string& directory)
-    : m_left{left}, m_directory{directory} {
-  change_dir_internal(directory);
+Shell::Shell() {
+  std::string current_directory = get_current_directory();
+  change_dir_internal(current_directory);
+  this->m_directory = current_directory;
+
+  std::string prompt{RED + "${USER}" + RESET + "@" + GREEN + "${HOST}" + RESET +
+                     YELLOW + " [${DIRECTORY}]" + RESET + " > "};
+  this->m_left = prompt;
 }
 
 void Shell::update_directory(const std::string& new_directory) {
@@ -34,8 +39,28 @@ void Shell::update_directory(const std::string& new_directory) {
 
   } else {
     const std::string new_path = join_path(new_directory, this->m_directory);
-
-    this->m_directory = new_path;
+    switch (file_or_directory_exists_in_directory(new_path)) {
+    case DirectoryStatus::DirectoryExists:
+      this->m_directory = new_path;
+      break;
+    case DirectoryStatus::DirectoryIsFile:
+      std::cerr << "cd error: \"" << new_path
+                << "\" is not a directory but a file" << std::endl;
+      return;
+      break;
+    case DirectoryStatus::DirectoryExistsButUnknownFormat:
+      std::cerr
+          << "cd error: \"" << new_path
+          << "\" is not a directory but the filetype could not be identified"
+          << std::endl;
+      return;
+      break;
+    case DirectoryStatus::DirectoryDoesNotExist:
+      std::cerr << "cd error: \"" << new_path << "\" does not exist"
+                << std::endl;
+      return;
+      break;
+    }
   }
 
   try {
@@ -46,11 +71,13 @@ void Shell::update_directory(const std::string& new_directory) {
 }
 
 std::string Shell::prompt() {
+  std::string prompt = this->m_left;
+  size_t user_pos = prompt.find("${USER}");
+  prompt.replace(user_pos, 7, get_username_of_running_user());
+  size_t host_pos = prompt.find("${HOST}");
+  prompt.replace(host_pos, 7, get_hostname_of_running_host());
+  size_t directory_pos = prompt.find("${DIRECTORY}");
+  prompt.replace(directory_pos, 12, this->m_directory);
 
-  std::string prompt_value{
-      std::string(RED + "username" + RESET) + '@' +
-      std::string(GREEN + "hostname" + RESET) + " > " +
-      std::string(YELLOW + this->m_directory.c_str() + RESET) + ' '};
-
-  return prompt_value;
+  return prompt;
 }

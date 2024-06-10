@@ -9,14 +9,14 @@
 
 class Shell {
 private:
-  const std::string m_left{};
+  std::string m_left{};
   /*const std::string m_right{};*/ // This is an advanced feature to be added
                                    // after completing the shell execution
                                    // pipeline
   std::string m_directory{};
 
 public:
-  Shell(const std::string&, const std::string&);
+  Shell();
 
   void update_directory(const std::string&);
 

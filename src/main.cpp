@@ -18,13 +18,7 @@ void shell_loop(Shell&);
 void exec(const std::vector<char*>&);
 
 int main() {
-  const std::string username{RED + "username" + RESET};
-  const std::string hostname{GREEN + "hostname" + RESET};
-
-  const std::string prompt{std::string(username) + "@" + std::string(hostname) +
-                           " > "};
-
-  Shell shell{prompt, std::string("/")};
+  Shell shell{};
 
   shell_loop(shell);
 
@@ -48,7 +42,11 @@ void shell_loop(Shell& shell) {
 
     if (strcmp(argv[0], "cd") == 0) {
       try {
-        shell.update_directory(argv[1]);
+        std::string new_path = (argv.size() >= 2) ? std::string(argv[1]) : "/";
+        if (new_path.starts_with('"')) {
+          new_path = new_path.substr(1, new_path.length() - 1);
+        }
+        shell.update_directory(new_path.c_str());
       } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
       }
