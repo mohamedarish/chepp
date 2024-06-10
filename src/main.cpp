@@ -42,7 +42,7 @@ void shell_loop(Shell& shell) {
       break;
     }
 
-    const std::vector<char*> argv{string_tokenizer(command, ' ')};
+    const std::vector<char*> argv{command_tokenizer(command)};
 
     exec(argv);
   }

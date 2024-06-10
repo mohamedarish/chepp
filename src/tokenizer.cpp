@@ -3,16 +3,25 @@
 #include <string>
 #include <vector>
 
-std::vector<char*> string_tokenizer(const std::string& string, char delimiter) {
+std::vector<char*> command_tokenizer(const std::string& string) {
   std::vector<char*> split_strings{};
 
   size_t i{};
 
   while (i < string.length()) {
     std::string current{};
-    while (string[i] != delimiter) {
-      current.push_back(string[i]);
-      i++;
+    if (string[i] == '\"') {
+      current.push_back(string[i++]);
+
+      while (string[i] != '\"') {
+        current.push_back(string[i++]);
+      }
+    } else if (string[i] == '\'') {
+      current.push_back(string[i++]);
+    } else {
+      while (string[i] != ' ') {
+        current.push_back(string[i++]);
+      }
     }
 
     split_strings.push_back(strdup(current.c_str()));
