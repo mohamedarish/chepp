@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <exception>
 #include <iostream>
 #include <istream>
 #include <ostream>
@@ -39,10 +40,20 @@ void shell_loop(Shell& shell) {
     std::getline(std::cin >> std::ws, command);
 
     if (command == "exit") {
+      std::cout << "chepp: Goodbye 👋\n";
       break;
     }
 
     const std::vector<char*> argv{command_tokenizer(command)};
+
+    if (strcmp(argv[0], "cd") == 0) {
+      try {
+        shell.update_directory(argv[1]);
+      } catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+      }
+      continue;
+    }
 
     exec(argv);
   }

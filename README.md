@@ -41,11 +41,16 @@ or
 ## TODOS
 
 - \[x\] Implement the shell prompt
-- \[ \] Implement a directory structure
-- \[ \] Implement cd command
-- \[ \] Implement pwd command (This is very easy)
+- \[x\] Implement a directory structure
+- \[x\] Implement cd command \[NOTE: Use SYSTEM CALLS chdir() ;) WINK WINK\]
+- \[x\] Implement pwd command (This is very easy) \[NOTE: JUST USE THE INBUILT pwd COMMAND\]
 - \[x\] Find a way to execute commands
 - \[ \] Inlcude path variables to automatically search for commands from them and execute
 - \[ \] Implement a tree for autocomplete suggestions
+- \[ \] Find a way to find the height and width of the terminal
 - \[ \] Implement a way to include a right side prompt
 - \[x\] Find a way to implement an interactive terminal
+- \[ \] Implement a chepprc file
+- \[ \] Make a chepp scripting language
+- \[ \] Come up with a cool name for chepp scripting
+- \[ \] Implement a formatter and linter for chepp scripting

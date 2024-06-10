@@ -2,9 +2,10 @@
 
 #define SHELL_H
 
+#include "colors.h"
+#include <cstring>
 #include <iostream>
 #include <string>
-#include <string_view>
 
 class Shell {
 private:
@@ -15,12 +16,11 @@ private:
   std::string m_directory{};
 
 public:
-  Shell(const std::string& left, const std::string& directory)
-      : m_left{left}, m_directory{directory} {}
+  Shell(const std::string&, const std::string&);
 
-  void update_directory(std::string_view new_directory);
+  void update_directory(const std::string&);
 
-  constexpr std::string_view prompt() { return m_left; }
+  std::string prompt();
 };
 
 #endif // !PROMPT_H
