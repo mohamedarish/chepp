@@ -1,3 +1,4 @@
+#include "lib.h"
 #include "shell.h"
 #include "terminal.h"
 #include "tokenizer.h"
@@ -6,6 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <exception>
+#include <format>
 #include <iostream>
 #include <istream>
 #include <ostream>
@@ -19,7 +21,7 @@ void exec(const std::vector<char*>&);
 
 int main() {
   Shell shell{};
-  Terminal terminal{0, 0, shell};
+  Terminal terminal{shell};
 
   shell_loop(terminal);
 
@@ -28,13 +30,11 @@ int main() {
 
 void shell_loop(Terminal& terminal) {
   while (true) {
-    /*std::cout << terminal.shell().prompt();*/
-    /*mvprintw(terminal.get_y(), terminal.get_x(),*/
-    /*         terminal.shell().prompt().c_str());*/
-
     terminal.print_output(terminal.shell().prompt());
 
-    std::string command{terminal.read_user_input()};
+    std::string command{};
+
+    std::getline(std::cin >> std::ws, command);
 
     if (command == "exit") {
       std::cout << "chepp: Goodbye 👋\n";
@@ -84,10 +84,6 @@ void exec(const std::vector<char*>& argv) {
     waitpid(pid, &status, 0);
 
     if (!WIFEXITED(status)) {
-      /*  std::cout << "Command executed with exit status: " <<
-       * WEXITSTATUS(status)*/
-      /*            << std::endl;*/
-      /*} else {*/
       std::cerr << "Command execution failed" << std::endl;
     }
   }

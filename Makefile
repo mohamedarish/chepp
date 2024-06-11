@@ -2,7 +2,7 @@
 CXX := g++
 CXXFLAGS := -std=c++2b -Wall -Weffc++ -Wextra -Wconversion -Wsign-conversion
 LDFLAGS := -O2
-RDFLAGS := -lncurses
+RDFLAGS := 
 
 # Directories
 SRCDIR := src

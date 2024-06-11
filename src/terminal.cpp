@@ -1,46 +1,31 @@
 #include "terminal.h"
+#include "cursor.h"
+#include "lib.h"
+#include <format>
+#include <iostream>
+#include <sstream>
+#include <sys/termios.h>
 
-std::string Terminal::read_user_input() {
-  std::string user_input{};
+Terminal::Terminal(Shell shell) : m_shell{shell} {
+  struct termios original_termios;
+  m_original_termios = original_termios;
+  enable_raw_mode(m_original_termios);
 
-  int ch;
-  while ((ch = getch()) != '\n') {
-    switch (ch) {
-    case KEY_LEFT:
-      if (this->m_x > 0) {
-        (this->m_x)--;
-        move(this->m_y, this->m_x);
-      }
-      break;
-    case KEY_RIGHT:
-      (this->m_x)++;
-      move(this->m_y, this->m_x);
-      break;
-    case KEY_BACKSPACE:
-      if (this->m_x > 0) {
-        (this->m_x)--;
-        delch();
-      }
-      break;
-    default:
-      user_input.insert(static_cast<unsigned long>((this->m_x)++), 1,
-                        static_cast<char>(ch));
-      std::string output{};
-      output.push_back(static_cast<char>(ch));
-      this->print_output(output);
-      break;
-    }
-  }
-
-  this->m_x = 0;
-
-  return user_input;
+  /*get_cursor_position(original_termios, m_x, m_y);*/
 }
 
+Terminal::~Terminal() { disable_raw_mode(m_original_termios); }
+
+std::string Terminal::read_user_input() { return "nothing"; }
+
 void Terminal::print_output(const std::string& output) {
-  mvaddstr((this->m_x)++, (this->m_y), output.c_str());
+  std::cout << output << m_x << ' ' << m_y << ' ';
+}
+
+void Terminal::update_cursor_position() {
+  get_cursor_position(m_original_termios, m_x, m_y);
 }
 
 void Terminal::update_directory(const std::string& new_directory) {
-  this->shell().update_directory(new_directory);
+  shell().update_directory(new_directory);
 }

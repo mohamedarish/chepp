@@ -2,37 +2,26 @@
 
 #define TERMINAL_H
 
+#include "curses.h"
 #include "shell.h"
+#include <sys/termios.h>
 #include <sys/types.h>
 #include <termios.h>
 
+#include <cstdio>
 #include <iostream>
-#include <ncurses.h>
 #include <string>
+#include <unistd.h>
 
 class Terminal {
 private:
-  int m_x{}, m_y{};
+  int m_x{}, m_y{}, m_height{}, m_width{};
   Shell m_shell;
+  struct termios m_original_termios;
 
 public:
-  Terminal(int x, int y, Shell shell) : m_x{x}, m_y{y}, m_shell{shell} {
-    initscr();
-    cbreak();
-    noecho();
-    /*keypad(stdscr, TRUE);*/
-    clear();
-    start_color();
-    use_default_colors();
-  }
-
-  ~Terminal() {
-    clear();
-
-    refresh();
-    getch();
-    endwin();
-  }
+  Terminal(Shell shell);
+  ~Terminal();
 
   Shell shell() { return m_shell; }
 
@@ -47,6 +36,8 @@ public:
   std::string read_user_input();
 
   void print_output(const std::string&);
+
+  void update_cursor_position();
 };
 
 #endif // !TERMINAL_H

@@ -11,10 +11,10 @@
 Shell::Shell() {
   std::string current_directory = get_current_directory();
   change_dir_internal(current_directory);
-  this->m_directory = current_directory;
+  m_directory = current_directory;
 
   std::string prompt{"${USER}@${HOST} [${DIRECTORY}] > "};
-  this->m_left = prompt;
+  m_left = prompt;
 }
 
 void Shell::update_directory(const std::string& new_directory) {
@@ -23,10 +23,10 @@ void Shell::update_directory(const std::string& new_directory) {
   }
 
   if (new_directory == "..") {
-    if (this->m_directory == "/") {
+    if (m_directory == "/") {
       throw std::runtime_error("cd error: Cannot cd back from '/'");
     }
-    std::string old_directory{this->m_directory};
+    std::string old_directory{m_directory};
 
     while (old_directory.length() > 0 && !old_directory.ends_with('/')) {
       old_directory.pop_back();
@@ -37,13 +37,13 @@ void Shell::update_directory(const std::string& new_directory) {
       old_directory = "/";
     }
 
-    this->m_directory = old_directory;
+    m_directory = old_directory;
 
   } else {
-    const std::string new_path = join_path(new_directory, this->m_directory);
+    const std::string new_path = join_path(new_directory, m_directory);
     switch (file_or_directory_exists_in_directory(new_path)) {
     case DirectoryStatus::DirectoryExists:
-      this->m_directory = new_path;
+      m_directory = new_path;
       break;
     case DirectoryStatus::DirectoryIsFile:
       std::cerr << "cd error: \"" << new_path
@@ -66,20 +66,20 @@ void Shell::update_directory(const std::string& new_directory) {
   }
 
   try {
-    change_dir_internal(this->m_directory);
+    change_dir_internal(m_directory);
   } catch (const std::exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
 
 std::string Shell::prompt() {
-  std::string prompt = this->m_left;
+  std::string prompt = m_left;
   size_t user_pos = prompt.find("${USER}");
   prompt.replace(user_pos, 7, get_username_of_running_user());
   size_t host_pos = prompt.find("${HOST}");
   prompt.replace(host_pos, 7, get_hostname_of_running_host());
   size_t directory_pos = prompt.find("${DIRECTORY}");
-  prompt.replace(directory_pos, 12, this->m_directory);
+  prompt.replace(directory_pos, 12, m_directory);
 
   return prompt;
 }

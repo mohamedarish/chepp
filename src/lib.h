@@ -7,7 +7,9 @@
 
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <termios.h>
 #include <unistd.h>
+
 const char PATH_SEPARATOR = '/';
 
 enum class DirectoryStatus {
@@ -31,4 +33,9 @@ std::string get_current_directory();
 
 std::string replace_tokens(std::string&);
 
+void set_cursor_position(int, int);
+
+void enable_raw_mode(struct termios&);
+
+void disable_raw_mode(struct termios&);
 #endif // !LIB_H

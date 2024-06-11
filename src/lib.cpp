@@ -1,7 +1,9 @@
 #include "lib.h"
+#include <iostream>
 #include <stdexcept>
 #include <string>
 #include <sys/stat.h>
+#include <sys/termios.h>
 #include <unistd.h>
 
 void change_dir_internal(const std::string& new_path) {
@@ -68,4 +70,20 @@ std::string get_current_directory() {
   } else {
     throw std::runtime_error("Error getting current directory");
   }
+}
+
+void set_cursor_position(int row, int column) {
+  std::cout << "\033[" << row << ";" << column << "H";
+  std::cout.flush();
+}
+
+void enable_raw_mode(struct termios& original_termios) {
+  tcgetattr(STDIN_FILENO, &original_termios);
+  struct termios raw = original_termios;
+  raw.c_lflag &= ~(static_cast<tcflag_t>(ICANON | ECHO));
+  tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
+}
+
+void disable_raw_mode(struct termios& original_termios) {
+  tcsetattr(STDIN_FILENO, TCSAFLUSH, &original_termios);
 }

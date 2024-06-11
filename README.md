@@ -6,10 +6,6 @@ A simple shell written in c++, hence chell(shell with s=c, l=p like cpp)
 
 None to execute :)
 
-To develop:
-I think almost every OS other than Windows comes with clang/gcc/g++/clang++ inbuilt, so none on not windows.
-On windows requires g++/clang++
-
 ## BUILD STEPS
 
 - Clone the repo:
