@@ -41,10 +41,12 @@ or
 - \[x\] Implement cd command \[NOTE: Use SYSTEM CALLS chdir() ;) WINK WINK\]
 - \[x\] Implement pwd command (This is very easy) \[NOTE: JUST USE THE INBUILT pwd COMMAND\]
 - \[x\] Find a way to execute commands
-- \[x\] Terminal API using ncurses.
-- \[ \] Move cursor and take input using ncurses.
-- \[ \] Print output using ncurses.
-- \[ \] Track cursor position for ease of use and editing commands.
+- \[x\] ~~Terminal API using ncurses.~~
+- \[ \] Implement terminal handling using termios.
+- \[ \] Move cursor and take input using ~~ncurses~~ termios and sequence codes.
+- \[ \] Print output using ~~ncurses~~ termion.
+- \[x\] Track cursor position for ease of use and editing commands.
+- \[ \] Get it working in raw mode.
 - \[ \] Inlcude path variables to automatically search for commands from them and execute
 - \[ \] Implement a tree for autocomplete suggestions
 - \[ \] Find a way to find the height and width of the terminal
