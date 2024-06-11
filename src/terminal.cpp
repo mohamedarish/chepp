@@ -22,9 +22,7 @@ void Terminal::print_output(const std::string& output) {
   std::cout << output << m_x << ' ' << m_y << ' ';
 }
 
-void Terminal::update_cursor_position() {
-  get_cursor_position(m_original_termios, m_x, m_y);
-}
+void Terminal::update_cursor_position() { get_cursor_position(m_x, m_y); }
 
 void Terminal::update_directory(const std::string& new_directory) {
   shell().update_directory(new_directory);

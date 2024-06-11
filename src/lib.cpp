@@ -1,5 +1,6 @@
 #include "lib.h"
 #include <iostream>
+#include <limits.h>
 #include <stdexcept>
 #include <string>
 #include <sys/stat.h>

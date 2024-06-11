@@ -13,6 +13,6 @@ void move_cursor_left(int);
 
 void move_cursor_right(int);
 
-void get_cursor_position(struct termios&, int&, int&);
+void get_cursor_position(int&, int&);
 
 #endif // !CURSOR_H

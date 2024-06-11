@@ -1,6 +1,6 @@
 #include "cursor.h"
 
-void move_cursor_lefteft(int n) {
+void move_cursor_left(int n) {
   for (int i = 0; i < n; ++i) {
     std::cout << MOVE_LEFT;
   }

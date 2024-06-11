@@ -38,4 +38,5 @@ void set_cursor_position(int, int);
 void enable_raw_mode(struct termios&);
 
 void disable_raw_mode(struct termios&);
+
 #endif // !LIB_H
