@@ -40,7 +40,8 @@ or
 - \[x\] Implement a directory structure
 - \[x\] Implement cd command \[NOTE: Use SYSTEM CALLS chdir() ;) WINK WINK\]
 - \[x\] Implement pwd command (This is very easy) \[NOTE: JUST USE THE INBUILT pwd COMMAND\]
-- \[x\] Find a way to execute commands
+- \[x\] Find a way to execute commands.
+- \[x\] ~~Windows Support done partially/~~ \[Windows support is droppeed\]
 - \[x\] ~~Terminal API using ncurses.~~
 - \[ \] Implement terminal handling using termios.
 - \[ \] Move cursor and take input using ~~ncurses~~ termios and sequence codes.
