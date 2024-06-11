@@ -4,16 +4,11 @@
 
 #include "shell.h"
 #include <sys/types.h>
+#include <termios.h>
 
-#ifdef _WIN32
-#include <curses.h>
-#include <iostream>
-#include <string>
-#else
 #include <iostream>
 #include <ncurses.h>
 #include <string>
-#endif
 
 class Terminal {
 private:
@@ -22,14 +17,10 @@ private:
 
 public:
   Terminal(int x, int y, Shell shell) : m_x{x}, m_y{y}, m_shell{shell} {
-#ifdef _WIN32
     initscr();
-#else
-    initscr();
-#endif
     cbreak();
     noecho();
-    keypad(stdscr, TRUE);
+    /*keypad(stdscr, TRUE);*/
     clear();
     start_color();
     use_default_colors();

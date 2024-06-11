@@ -1,4 +1,5 @@
 #include "terminal.h"
+
 std::string Terminal::read_user_input() {
   std::string user_input{};
 

@@ -45,40 +45,20 @@ file_or_directory_exists_in_directory(const std::string& full_path) {
 }
 
 std::string get_username_of_running_user() {
-#if defined(_WIN32) || defined(_WIN64)
-  char username[UNLEN + 1];
-  DWORD username_len = UNLEN + 1;
-  if (GetUserName(username, &username_len)) {
-    return std::string(username);
-  } else {
-    return "unknown";
-  }
-#else
   const char* username = getenv("USER");
   if (username == nullptr) {
     username = getenv("USERNAME");
   }
   return (username != nullptr) ? std::string(username) : "unknown";
-#endif // DEBUG
 }
 
 std::string get_hostname_of_running_host() {
-#if defined(_WIN32) || defined(_WIN64)
-  char hostname[MAX_COMPUTERNAME_LENGTH + 1];
-  DWORD hostname_len = MAX_COMPUTERNAME_LENGTH + 1;
-  if (GetComputerName(hostname, &hostname_len)) {
-    return std::string(hostname);
-  } else {
-    return "unknown";
-  }
-#else
   char hostname[1024];
   if (gethostname(hostname, sizeof(hostname)) == 0) {
     return std::string(hostname);
   } else {
     return "unknown";
   }
-#endif
 }
 
 std::string get_current_directory() {

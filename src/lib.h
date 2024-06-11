@@ -5,20 +5,10 @@
 #include <cstdlib>
 #include <string>
 
-#if defined(_WIN32) || defined(_WIN64)
-#include <Lmcons.h>
-#include <direct.h>
-#include <process.h>
-#include <windows.h>
-#define chdir _chdir
-#define getcwd _getcwd
-const char PATH_SEPARATOR = '\\';
-#else
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
 const char PATH_SEPARATOR = '/';
-#endif
 
 enum class DirectoryStatus {
   DirectoryExists,
