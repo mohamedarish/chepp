@@ -1,6 +1,8 @@
 #include "terminal.h"
 #include "tokenizer.h"
+#include <cstring>
 #include <iostream>
+#include <sys/wait.h>
 #include <unistd.h>
 
 void shell_loop(Terminal&);
