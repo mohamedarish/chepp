@@ -1,12 +1,6 @@
 #include "shell.h"
 #include "lib.h"
-#include <cstddef>
-#include <exception>
 #include <iostream>
-#include <ostream>
-#include <stdexcept>
-#include <string>
-#include <string_view>
 
 Shell::Shell() {
   std::string current_directory = get_current_directory();

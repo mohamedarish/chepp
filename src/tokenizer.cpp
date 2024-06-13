@@ -1,7 +1,4 @@
 #include "tokenizer.h"
-#include <iostream>
-#include <string>
-#include <vector>
 
 std::vector<char*> command_tokenizer(const std::string& string) {
   std::vector<char*> split_strings{};

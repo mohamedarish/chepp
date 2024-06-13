@@ -1,20 +1,7 @@
-#include "lib.h"
-#include "shell.h"
 #include "terminal.h"
 #include "tokenizer.h"
-#include <array>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <exception>
-#include <format>
 #include <iostream>
-#include <istream>
-#include <ostream>
-#include <string>
-#include <sys/wait.h>
 #include <unistd.h>
-#include <vector>
 
 void shell_loop(Terminal&);
 void exec(const std::vector<char*>&);

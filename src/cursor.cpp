@@ -1,4 +1,5 @@
 #include "cursor.h"
+#include <iostream>
 
 void move_cursor_left(int n) {
   for (int i = 0; i < n; ++i) {

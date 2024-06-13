@@ -2,7 +2,6 @@
 
 #define CURSOR_H
 
-#include <iostream>
 #define MOVE_LEFT "\033[D";
 #define MOVE_RIGHT "\033[C";
 #define SAVE_CURSOR "\033[s";

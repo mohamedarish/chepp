@@ -2,13 +2,8 @@
 
 #define LIB_H
 
-#include <cstdlib>
 #include <string>
-
-#include <sys/types.h>
-#include <sys/wait.h>
 #include <termios.h>
-#include <unistd.h>
 
 const char PATH_SEPARATOR = '/';
 

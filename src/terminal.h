@@ -2,16 +2,8 @@
 
 #define TERMINAL_H
 
-#include "curses.h"
 #include "shell.h"
-#include <sys/termios.h>
-#include <sys/types.h>
 #include <termios.h>
-
-#include <cstdio>
-#include <iostream>
-#include <string>
-#include <unistd.h>
 
 class Terminal {
 private:

@@ -39,4 +39,3 @@ clean:
 	rm -rf $(OBJDIR) $(TARGET)
 
 .PHONY: all clean
-

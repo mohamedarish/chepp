@@ -1,10 +1,7 @@
 #include "terminal.h"
 #include "cursor.h"
 #include "lib.h"
-#include <format>
 #include <iostream>
-#include <sstream>
-#include <sys/termios.h>
 
 Terminal::Terminal(Shell shell) : m_shell{shell} {
   struct termios original_termios;

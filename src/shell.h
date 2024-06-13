@@ -2,10 +2,7 @@
 
 #define SHELL_H
 
-#include <cstring>
-#include <iostream>
 #include <string>
-
 class Shell {
 private:
   std::string m_left{};
