@@ -3,6 +3,10 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#ifdef __linux__
+#include <linux/limits.h>
+#endif
+
 void change_dir_internal(const std::string& new_path) {
   if (chdir(new_path.c_str()) != 0) {
     throw std::runtime_error("Failed to change directory to " + new_path);
