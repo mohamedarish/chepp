@@ -4,6 +4,6 @@
 
 #include <vector>
 
-std::vector<char*> command_tokenizer(const std::string&);
+std::vector<char*> command_tokenizer(const std::string& command_input);
 
 #endif // !TOKENIZER_H

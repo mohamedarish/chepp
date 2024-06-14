@@ -1,24 +1,25 @@
 #include "tokenizer.h"
 #include <string>
+#include <vector>
 
-std::vector<char*> command_tokenizer(const std::string& string) {
+std::vector<char*> command_tokenizer(const std::string& command_input) {
   std::vector<char*> split_strings{};
 
   size_t i{};
 
-  while (i < string.length()) {
+  while (i < command_input.length()) {
     std::string current{};
-    if (string[i] == '\"') {
-      current.push_back(string[i++]);
+    if (command_input[i] == '\"') {
+      current.push_back(command_input[i++]);
 
-      while (string[i] != '\"') {
-        current.push_back(string[i++]);
+      while (command_input[i] != '\"') {
+        current.push_back(command_input[i++]);
       }
-    } else if (string[i] == '\'') {
-      current.push_back(string[i++]);
+    } else if (command_input[i] == '\'') {
+      current.push_back(command_input[i++]);
     } else {
-      while (string[i] != ' ') {
-        current.push_back(string[i++]);
+      while (command_input[i] != ' ') {
+        current.push_back(command_input[i++]);
       }
     }
 
