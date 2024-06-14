@@ -2,12 +2,11 @@
 #include "cursor.h"
 #include "lib.h"
 #include <iostream>
+#include <termios.h>
 
-Terminal::Terminal(Shell shell) : m_shell{shell} {
-  struct termios original_termios;
-  m_original_termios = original_termios;
+Terminal::Terminal(Shell shell, struct termios original_termios)
+    : m_shell{shell}, m_original_termios(original_termios) {
   enable_raw_mode(m_original_termios);
-
   /*get_cursor_position(original_termios, m_x, m_y);*/
 }
 

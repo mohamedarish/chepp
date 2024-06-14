@@ -12,7 +12,7 @@ private:
   struct termios m_original_termios;
 
 public:
-  Terminal(Shell shell);
+  Terminal(Shell shell, struct termios original_termios);
   ~Terminal();
 
   Shell shell() { return m_shell; }

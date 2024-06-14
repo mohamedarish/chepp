@@ -3,6 +3,7 @@
 #include <cstring>
 #include <iostream>
 #include <sys/wait.h>
+#include <termios.h>
 #include <unistd.h>
 
 void shell_loop(Terminal&);
@@ -10,7 +11,9 @@ void exec(const std::vector<char*>&);
 
 int main() {
   Shell shell{};
-  Terminal terminal{shell};
+  struct termios original_termios;
+
+  Terminal terminal{shell, original_termios};
 
   shell_loop(terminal);
 
