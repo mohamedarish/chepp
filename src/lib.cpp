@@ -1,5 +1,4 @@
 #include "lib.h"
-#include <iostream>
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -71,11 +70,6 @@ std::string get_current_directory() {
   } else {
     throw std::runtime_error("Error getting current directory");
   }
-}
-
-void set_cursor_position(int row, int column) {
-  std::cout << "\033[" << row << ";" << column << "H";
-  std::cout.flush();
 }
 
 void enable_raw_mode(struct termios& original_termios) {

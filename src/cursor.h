@@ -8,10 +8,8 @@
 #define RESTORE_CURSOR "\033[u";
 #define CLEAR_LINE "\033[K";
 
-void move_cursor_left(int);
+void move_cursor_left(int spaces);
 
-void move_cursor_right(int);
-
-void get_cursor_position(int&, int&);
+void move_cursor_right(int spaces);
 
 #endif // !CURSOR_H

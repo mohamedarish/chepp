@@ -14,7 +14,7 @@ private:
 public:
   Shell();
 
-  void update_directory(const std::string&);
+  void update_directory(const std::string& new_directory);
 
   std::string prompt();
 };

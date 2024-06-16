@@ -32,9 +32,9 @@ void Shell::update_directory(const std::string& new_directory) {
     }
 
     m_directory = old_directory;
-
   } else {
     const std::string new_path = join_path(new_directory, m_directory);
+
     switch (file_or_directory_exists_in_directory(new_path)) {
     case DirectoryStatus::DirectoryExists:
       m_directory = new_path;

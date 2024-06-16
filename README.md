@@ -43,17 +43,23 @@ or
 - \[x\] Find a way to execute commands.
 - \[x\] ~~Windows Support done partially/~~ \[Windows support is droppeed\]
 - \[x\] ~~Terminal API using ncurses.~~
-- \[ \] Implement terminal handling using termios.
-- \[ \] Move cursor and take input using ~~ncurses~~ termios and sequence codes.
-- \[ \] Print output using ~~ncurses~~ termion.
+- \[x\] Implement terminal handling using termios. (Skipped because no need to handle terminal and just need to handle input).
+- \[x\] Move cursor and take input using ~~ncurses~~ termios and sequence codes.
+- \[x\] Print output using ~~ncurses~~ termion.
 - \[x\] Track cursor position for ease of use and editing commands.
-- \[ \] Get it working in raw mode.
-- \[ \] Inlcude path variables to automatically search for commands from them and execute
-- \[ \] Implement a tree for autocomplete suggestions
-- \[ \] Find a way to find the height and width of the terminal
-- \[ \] Implement a way to include a right side prompt
-- \[x\] Find a way to implement an interactive terminal
-- \[ \] Implement a chepprc file
-- \[ \] Make a chepp scripting language
-- \[ \] Come up with a cool name for chepp scripting
-- \[ \] Implement a formatter and linter for chepp scripting
+- \[x\] Get it working in raw mode.
+- \[ \] Re add colors into the prompt.
+- \[ \] Implement a method to dynamically parse and substitute colors in the prompt.
+- \[ \] Implement the history file.
+- \[ \] Implement the up and down search in history.
+- \[ \] Inlcude path variables to automatically search for commands from them and execute.
+- \[ \] Implement a tree for autocomplete suggestions.
+- \[ \] Find a way to find the height and width of the terminal.
+- \[ \] Implement a way to include a right side prompt.
+- \[x\] Find a way to implement an interactive terminal. (Done automatically as it commands are handled in a child process).
+- \[ \] Implement a chepprc file.
+- \[ \] Make a chepp scripting language.
+- \[ \] Come up with a cool name for chepp scripting.
+- \[ \] Implement a formatter and linter for chepp scripting.
+- \[ \] Implement pipelining.
+- \[ \] Think of a way to make pipelining easier.

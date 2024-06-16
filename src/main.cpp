@@ -1,3 +1,4 @@
+#include "lib.h"
 #include "terminal.h"
 #include "tokenizer.h"
 #include <cstring>
@@ -24,9 +25,10 @@ void shell_loop(Terminal& terminal) {
   while (true) {
     terminal.print_output(terminal.shell().prompt());
 
-    std::string command{};
+    std::string command{terminal.read_user_input()};
 
-    std::getline(std::cin >> std::ws, command);
+    /*std::getline(std::cin >> std::ws, command);*/
+    /*terminal.read_user_input();*/
 
     if (command == "exit") {
       std::cout << "chepp: Goodbye 👋\n";
@@ -37,10 +39,13 @@ void shell_loop(Terminal& terminal) {
 
     if (strcmp(argv[0], "cd") == 0) {
       try {
-        std::string new_path = (argv.size() >= 2) ? std::string(argv[1]) : "/";
+        std::string new_path =
+            (argv.size() >= 2) ? std::string(argv[1]) : get_current_directory();
+
         if (new_path.starts_with('"')) {
           new_path = new_path.substr(1, new_path.length() - 1);
         }
+
         terminal.update_directory(new_path.c_str());
       } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
