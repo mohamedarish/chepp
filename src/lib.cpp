@@ -1,4 +1,5 @@
 #include "lib.h"
+#include <stdexcept>
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -67,9 +68,8 @@ std::string get_current_directory() {
   char buffer[PATH_MAX];
   if (getcwd(buffer, sizeof(buffer)) != nullptr) {
     return std::string(buffer);
-  } else {
-    throw std::runtime_error("Error getting current directory");
   }
+  throw std::runtime_error("Error getting current directory");
 }
 
 void enable_raw_mode(struct termios& original_termios) {
