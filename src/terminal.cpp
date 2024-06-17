@@ -15,7 +15,7 @@ Terminal::~Terminal() { disable_raw_mode(m_original_termios); }
 
 std::string Terminal::read_user_input() {
   std::string command{};
-  int cursor = 0;
+  unsigned long cursor = 0;
   while (true) {
     char c;
     if (read(STDIN_FILENO, &c, 1) == -1 && errno != EAGAIN) {
@@ -50,7 +50,7 @@ std::string Terminal::read_user_input() {
           // TODO: Implement history
           break;
         case 'C':
-          if (cursor < static_cast<int>(command.length())) {
+          if (cursor < command.length()) {
             cursor += 1;
             move_cursor_right(1);
           }
@@ -65,8 +65,15 @@ std::string Terminal::read_user_input() {
       }
     } else {
       print_output(std::string(1, c));
-      cursor++;
+      /*if (cursor < command.length()) {*/
+      /*  print_output(command.substr(cursor));*/
+      /*  move_cursor_left(static_cast<int>(command.length() - cursor -
+         1));*/
+      /*command.insert(cursor, &c);*/
+      /*} else {*/
       command.push_back(c);
+      /*}*/
+      cursor++;
     }
   }
   return command;
